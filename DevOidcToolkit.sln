@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevOidcToolkit", "DevOidcToolkit\DevOidcToolkit.csproj", "{2DEA8541-D0D2-4AC3-B9DA-1D1411B724E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevOidcToolkit.UnitTests", "DevOidcToolkit.UnitTests\DevOidcToolkit.UnitTests.csproj", "{EFBBF884-9B0D-48FD-B725-D2B7DBDDD898}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DEA8541-D0D2-4AC3-B9DA-1D1411B724E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DEA8541-D0D2-4AC3-B9DA-1D1411B724E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DEA8541-D0D2-4AC3-B9DA-1D1411B724E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DEA8541-D0D2-4AC3-B9DA-1D1411B724E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFBBF884-9B0D-48FD-B725-D2B7DBDDD898}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFBBF884-9B0D-48FD-B725-D2B7DBDDD898}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFBBF884-9B0D-48FD-B725-D2B7DBDDD898}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFBBF884-9B0D-48FD-B725-D2B7DBDDD898}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

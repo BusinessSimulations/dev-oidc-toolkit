@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DebugType>embedded</DebugType>
+    <AssemblyName>dev-oidc-toolkit</AssemblyName>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <AssemblyVersion Condition=" '$(VERSION)' == '' ">0.0.0.0</AssemblyVersion>
+    <AssemblyVersion Condition=" '$(VERSION)' != '' ">$(VERSION)</AssemblyVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.16" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.16" />
+    <PackageReference Include="OpenIddict.AspNetCore" Version="6.3.0" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="6.3.0" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <EmbeddedResource Include="Documentation/**/*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="config.json" CopyToPublishDirectory="Never" />
+    <Content Update="dist/**/*" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+</Project>

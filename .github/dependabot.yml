@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/"
+    open-pull-requests-limit: 0
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "nuget"
+    directory: "/DevOidcToolkit"
+    open-pull-requests-limit: 0
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "nuget"
+    directory: "/DevOidcToolkit.UnitTests"
+    open-pull-requests-limit: 0
+    schedule:
+      interval: "weekly"

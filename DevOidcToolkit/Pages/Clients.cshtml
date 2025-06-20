@@ -1,0 +1,43 @@
+@page "/clients"
+@using OpenIddict.Abstractions
+@using OpenIddict.Core
+@using System.Linq
+@using Microsoft.EntityFrameworkCore
+@using OpenIddict.EntityFrameworkCore.Models
+@using System.Text.Json
+@inject DevOidcToolkitContext DbContext
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "clients";
+}
+
+<a href="/">Return to homepage</a>
+
+<h1>Clients</h1>
+
+@{
+    var clients = await DbContext.Set<OpenIddictEntityFrameworkCoreApplication>().ToListAsync();
+}
+
+@if (clients?.Any() == true)
+{
+    <ul class="client-list">
+        @foreach (var client in clients)
+        {
+            <li style="list-style: none;">
+                <details>
+                    <summary class="name">@client.ClientId</summary>
+                    @{
+                        var options = new JsonSerializerOptions { WriteIndented = true };
+                        var json = JsonSerializer.Serialize(client, options);
+                    }
+                    <pre class="raw-data">@Html.Raw(json)</pre>
+                </details>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No clients found</p>
+}

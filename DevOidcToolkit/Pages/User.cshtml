@@ -1,0 +1,21 @@
+@page "/user"
+@using Microsoft.AspNetCore.Authorization;
+@attribute [Authorize]
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "User Profile";
+}
+
+<a href="/">Return to homepage</a>
+
+<h1>User Profile</h1>
+<p>
+    <strong>Welcome,</strong> <span class="user-name">@User.Identity!.Name</span>
+</p>
+
+<form action="./logout" method="post">
+    @Html.AntiForgeryToken()
+    <button type="submit">
+        Log out
+    </button>
+</form>

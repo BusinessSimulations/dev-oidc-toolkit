@@ -1,0 +1,9 @@
+@page "/auth"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "authorize";
+}
+
+<h1>Authorize application</h1>

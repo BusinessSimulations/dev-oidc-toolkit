@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Authorize Application";
+    Layout = "_Layout";
+}
+
+
+<h1>Authorize Application</h1>
+
+<p>The application <strong>@ViewBag.ClientName</strong> is requesting access to your account.</p>
+
+@if (ViewBag.Scopes != null && ViewBag.Scopes.Count > 0)
+{
+    <div>
+        <p>This application is requesting the following scopes:</p>
+        <ul>
+            @foreach (var scope in ViewBag.Scopes)
+            {
+                <li>@scope</li>
+            }
+        </ul>
+    </div>
+}
+
+<form method="post" enctype="application/x-www-form-urlencoded" asp-action="AuthorizePost">
+    @Html.AntiForgeryToken()
+    @* Existing OIDC parameters: *@
+    @foreach (var parameter in Context.Request.Query)
+    {
+        <input type="hidden" name="@parameter.Key" value="@parameter.Value" />
+    }
+    <button type="submit" name="consent" value="no">
+        Deny
+    </button>
+    <button type="submit" name="consent" value="yes">
+        Allow
+    </button>
+</form>

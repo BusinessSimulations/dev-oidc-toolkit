@@ -1,0 +1,31 @@
+@page "/login"
+@model DevOidcToolkit.Pages.LoginPageModel
+
+@{
+    ViewData["Title"] = "Log In";
+    Layout = "_Layout";
+}
+
+<h1>Log In</h1>
+
+<form id="login" method="post">
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div>
+            @Html.ValidationSummary()
+        </div>
+    }
+
+    <label for="email">Select User</label>
+    <select asp-for="Input.Email" asp-items="Model.UserEmails" id="email">
+        <option value="">-- Select User Email --</option>
+    </select>
+    <span asp-validation-for="Input.Email"></span>
+
+    <label for="remember-me">
+        <input asp-for="Input.RememberMe" type="checkbox" id="remember-me" />
+        Remember me
+    </label>
+
+    <button type="submit">Log In</button>
+</form>

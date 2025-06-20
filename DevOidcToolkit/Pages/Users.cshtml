@@ -1,0 +1,40 @@
+@page "/users"
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@using System.Text.Json
+@inject UserManager<DevOidcToolkitUser> UserManager
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Users";
+}
+
+<a href="/">Return to homepage</a>
+
+<h1>Users</h1>
+
+@{
+    var users = await UserManager.Users.ToListAsync();
+}
+
+@if (users?.Any() == true)
+{
+    <ul class="user-list">
+        @foreach (var user in users)
+        {
+            <li style="list-style: none;">
+                <details>
+                    <summary class="email">@user.Email</summary>
+                    @{
+                        var options = new JsonSerializerOptions { WriteIndented = true };
+                        var json = JsonSerializer.Serialize(user, options);
+                    }
+                    <pre class="raw-data">@Html.Raw(json)</pre>
+                </details>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>No users found</p>
+}

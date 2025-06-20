@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Dev OIDC Toolkit</title>
+    <link rel="stylesheet" href="~/css/sakura.css" asp-append-version="true" />
+</head>
+<body>
+    <main>
+        @RenderBody()
+    </main>
+    <footer>
+        <p>Version @(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "development")</p>
+    </footer>
+</body>
+</html>

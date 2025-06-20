@@ -1,0 +1,44 @@
+@page
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Dev OIDC Toolkit";
+}
+
+<div>
+    <h1>Welcome to Dev OIDC Toolkit</h1>
+    <p>A simple OpenID Connect identity provider for development and testing.</p>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="/user">
+                    User profile
+                </a>
+            </li>
+
+            <li>
+                <a href="/users">
+                    View users
+                </a>
+            </li>
+
+            <li>
+                <a href="/clients">
+                    View clients
+                </a>
+            </li>
+
+            <li>
+                <a href="/.well-known/openid-configuration">
+                    OpenID Connect configuration
+                </a>
+            </li>
+
+            <li>
+                <a href="@(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? "http://localhost:3001" : "/documentation")">
+                    Documentation
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
