@@ -6,12 +6,11 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [v0.1.0] - 2025-06-23
-
+## [0.1.0] - 2025-06-23
 - Initial release
 
 [Unreleased]:
-https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/v0.1.0...HEAD
+https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.1.0...HEAD
 
-[v0.1.0]:
-https://github.com/BusinessSimulations/dev-oidc-toolkit/releases/tag/v0.1.0
+[0.1.0]:
+https://github.com/BusinessSimulations/dev-oidc-toolkit/releases/tag/0.1.0
