@@ -38,6 +38,7 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - run: dotnet format -v d && git diff --exit-code
+      - run: dotnet test
 
   binary-build-linux-x64:
     name: Binary build linux-x64
