@@ -9,4 +9,4 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - Initial release
 
 [Unreleased]:
-https://github.com/jthomperoo/custom-pod-autoscaler
+https://github.com/BusinessSimulations/dev-oidc-toolkit
