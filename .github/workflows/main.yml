@@ -89,31 +89,6 @@ jobs:
           path: DevOidcToolkit/dist/dev-oidc-toolkit
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-  binary-build-osx-x64:
-    name: Binary build macOS x64
-    needs: [backend-checks, docs-build]
-    runs-on: macos-12
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-      - name: Download docs
-        uses: actions/download-artifact@v4
-        with:
-          name: docs
-          path: DevOidcToolkit/Documentation
-      - run: dotnet publish DevOidcToolkit -c Release -r osx-x64 /p:PublishDir=dist /p:IncludeNativeLibrariesForSelfExtract=true
-        env:
-          VERSION: ${{ github.event_name == 'release' && github.ref_name || '0.0.0' }}
-      - name: Publish binary
-        if: github.event_name == 'release'
-        uses: Shopify/upload-to-release@1.0.0
-        with:
-          name: dev-oidc-toolkit-osx-x64
-          path: DevOidcToolkit/dist/dev-oidc-toolkit
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
   binary-build-osx-arm64:
     name: Binary build macOS arm64
     needs: [backend-checks, docs-build]
@@ -195,8 +170,8 @@ jobs:
           push: ${{ github.event_name == 'release' }}
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+            ghcr.io/businesssimulations/dev-oidc-toolkit:latest
+            ghcr.io/businesssimulations/dev-oidc-toolkit:${{ github.ref_name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
