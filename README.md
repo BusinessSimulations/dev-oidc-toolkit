@@ -40,8 +40,8 @@ identity provider such as Keycloak as part of your testing pipeline.
 
 ### Potential future features
 
-- Custom scope and claim mapping
-- Wildcard redirect URIs
+- [Custom scope and claim mapping](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/1)
+- [Wildcard redirect URIs](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/2)
 
 ## Getting started
 
