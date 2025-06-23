@@ -171,7 +171,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: |
             ghcr.io/businesssimulations/dev-oidc-toolkit:latest
-            ghcr.io/businesssimulations/dev-oidc-toolkit:${{ github.ref_name }}
+            ghcr.io/businesssimulations/dev-oidc-toolkit:${{ github.event_name == 'release' && github.ref_name || github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
