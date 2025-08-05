@@ -275,6 +275,7 @@ public class ConnectController(ILogger<ConnectController> logger,
             if (email != null)
             {
                 claims["email"] = email;
+                claims["email_verified"] = "true";
             }
         }
 
