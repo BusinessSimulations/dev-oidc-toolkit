@@ -3,17 +3,17 @@
     "Port": 8080,
     "Users": [
       {
-        "Email": "sudo@localhost",
+        "Email": "test@localhost",
         "FirstName": "Test",
         "LastName": "User"
       }
     ],
     "Clients": [
       {
-        "Id": "test",
-        "Secret": "ThisIsNotARealSecret",
+        "Id": "client",
+        "Secret": "secret",
         "RedirectUris": [
-          "http://localhost:3000/authentication/callbacks/9e2375be-3dd6-49ff-a6a4-0e240edf5d72_local"
+          "http://localhost:3000/signin-oidc"
         ]
       }
     ]

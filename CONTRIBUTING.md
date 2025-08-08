@@ -65,13 +65,13 @@ dotnet restore
 2. Run the application:
 
 ```bash
-dotnet run --project DevOidcToolki
+dotnet run --project DevOidcToolkit
 ```
 
 Alternatively use `watch` to hot reload on changes:
 
 ```bash
-dotnet watch --project DevOidcToolki
+dotnet watch --project DevOidcToolkit
 ```
 
 To run the documentation follow these steps:
