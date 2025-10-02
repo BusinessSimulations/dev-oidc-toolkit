@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Add `email_verified` claim for compatibility with [pocketbase](https://github.com/pocketbase/pocketbase), see
+[#6](https://github.com/BusinessSimulations/dev-oidc-toolkit/pull/6)
 
 ## [0.1.0] - 2025-06-23
 - Initial release
