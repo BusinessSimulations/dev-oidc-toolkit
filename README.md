@@ -75,6 +75,14 @@ more information.
 There are also pre-built binaries available for download from the
 [releases page](https://github.com/BusinessSimulations/dev-oidc-toolkit/releases).
 
+## Docker images
+
+You can find the Docker images here:
+
+<https://github.com/businesssimulations/dev-oidc-toolkit/pkgs/container/dev-oidc-toolkit>
+
+Both ARM64 and AMD64 Linux images are supported.
+
 ### Potential future features
 
 - [Custom scope and claim mapping](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/1)
