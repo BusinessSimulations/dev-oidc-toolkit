@@ -1,8 +1,10 @@
 # dev-oidc-toolkit
 
-[Maintained by Business Simulations](https://businesssimulations.com).
-
 A simple OpenID Connect identity provider for development and testing.
+
+[![Business Simulations Logo](https://businesssimulations.com/logo.png)](https://businesssimulations.com/)
+
+[Maintained by Business Simulations](https://businesssimulations.com/).
 
 ## What is it?
 
@@ -38,10 +40,9 @@ identity provider such as Keycloak as part of your testing pipeline.
 - Distributed as a self-contained binaries
 - Distributed as Docker images
 
-### Potential future features
+## Documentation
 
-- [Custom scope and claim mapping](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/1)
-- [Wildcard redirect URIs](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/2)
+Access the documentatation here: <https://dev-oidc-toolkit.readthedocs.io/en/latest/>.
 
 ## Getting started
 
@@ -74,9 +75,10 @@ more information.
 There are also pre-built binaries available for download from the
 [releases page](https://github.com/BusinessSimulations/dev-oidc-toolkit/releases).
 
-## Documentation
+### Potential future features
 
-Access the documentatation here: <https://dev-oidc-toolkit.readthedocs.io/en/latest/>.
+- [Custom scope and claim mapping](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/1)
+- [Wildcard redirect URIs](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/2)
 
 ## License
 
