@@ -124,6 +124,12 @@ This is a list of all of the environment variables that can be used to configure
             <td>http://localhost:8080/callback</td>
             <td>None</td>
         </tr>
+        <tr>
+            <td>DevOidcToolkit__Clients__INDEX__PostLogoutRedirectUris__INDEX</td>
+            <td>The post logout redirect URIs of the client.</td>
+            <td>http://localhost:8080/callback</td>
+            <td>None</td>
+        </tr>
     </tbody>
 </table>
 
@@ -394,6 +400,13 @@ details](#example-json-configuration)).
             <td>RedirectUris</td>
             <td>array</td>
             <td>The redirect URIs of the client.</td>
+            <td>["http://localhost:3000/callback"]</td>
+            <td>[]</td>
+        </tr>
+        <tr>
+            <td>PostLogoutRedirectUris</td>
+            <td>array</td>
+            <td>The valid post logout redirect URIs of the client.</td>
             <td>["http://localhost:3000/callback"]</td>
             <td>[]</td>
         </tr>
