@@ -148,7 +148,7 @@ public class ConnectControllerAuthorizeTests
 
 
     [Fact]
-    public async void Authorize_WhenUserNotAuthenticated_ReturnsChallengeResult()
+    public async Task Authorize_WhenUserNotAuthenticated_ReturnsChallengeResult()
     {
         // Arrange
         var oidcAppManager = new Mock<IOpenIddictApplicationManager>();
@@ -518,7 +518,7 @@ public class ConnectControllerAuthorizePostTests
 
 
     [Fact]
-    public async void AuthorizePost_WhenUserNotAuthenticated_ReturnsChallengeResult()
+    public async Task AuthorizePost_WhenUserNotAuthenticated_ReturnsChallengeResult()
     {
         // Arrange
         var oidcAppManager = new Mock<IOpenIddictApplicationManager>();

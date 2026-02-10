@@ -6,6 +6,10 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.3.0]
+- Add support for `post_logout_redirect_uris`, see [#10](https://github.com/BusinessSimulations/dev-oidc-toolkit/pull/10)
+- Update to dotnet 10
+
 ## [0.2.0]
 - Add `email_verified` claim for compatibility with [pocketbase](https://github.com/pocketbase/pocketbase), see
 [#6](https://github.com/BusinessSimulations/dev-oidc-toolkit/pull/6)
@@ -14,7 +18,9 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - Initial release
 
 [Unreleased]:
-https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.2.0...HEAD
+https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.3.0...HEAD
+[0.3.0]:
+https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.2.0...0.3.0
 [0.2.0]:
 https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.1.0...0.2.0
 [0.1.0]:

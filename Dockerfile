@@ -1,5 +1,5 @@
 # Docs build
-FROM python:3.13 AS docs-build
+FROM python:3.14 AS docs-build
 WORKDIR /docs
 
 COPY DevOidcToolkit.Documentation /docs
@@ -10,7 +10,7 @@ RUN mkdocs build
 
 
 # App build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
 ARG VERSION=0.0.0.0
@@ -30,7 +30,7 @@ RUN dotnet publish -c Release --no-restore /p:SelfContained=false /p:PublishSing
 
 
 # App runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 COPY --from=build /app/dist .
 
