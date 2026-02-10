@@ -32,6 +32,7 @@ public class ClientConfiguration
     [Required] public required string Secret { get; set; }
 
     public List<string> RedirectUris { get; set; } = [];
+    public List<string> PostLogoutRedirectUris { get; set; } = [];
 }
 
 public class HttpsConfiguration

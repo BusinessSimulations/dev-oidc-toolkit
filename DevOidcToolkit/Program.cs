@@ -189,6 +189,7 @@ using (var scope = app.Services.CreateScope())
             Permissions = {
                 Permissions.Endpoints.Authorization,
                 Permissions.Endpoints.Token,
+                Permissions.Endpoints.EndSession,
 
                 Permissions.GrantTypes.AuthorizationCode,
                 Permissions.ResponseTypes.Code,
@@ -199,6 +200,7 @@ using (var scope = app.Services.CreateScope())
             ConsentType = ConsentTypes.Explicit
         };
         client.RedirectUris.ForEach(redirectUri => clientApp.RedirectUris.Add(new Uri(redirectUri)));
+        client.PostLogoutRedirectUris.ForEach(redirectUri => clientApp.PostLogoutRedirectUris.Add(new Uri(redirectUri)));
         await openIddictManager.CreateAsync(clientApp);
     }
 }
