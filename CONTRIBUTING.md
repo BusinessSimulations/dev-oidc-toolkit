@@ -51,7 +51,7 @@ This section details how you can work on the project locally.
 
 You will need these dependencies:
 
-- Dotnet v8+
+- Dotnet v10+
 - Python 3+ (for documentation)
 
 Follow these steps after forking and cloning the repository to run the project:
