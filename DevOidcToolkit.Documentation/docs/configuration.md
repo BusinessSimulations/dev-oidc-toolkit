@@ -53,6 +53,12 @@ This is a list of all of the environment variables that can be used to configure
             <td>localhost</td>
         </tr>
         <tr>
+            <td>DevOidcToolkit__Issuer</td>
+            <td>Override the issuer URL embedded in tokens and the OIDC discovery document. Useful for testing clients that validate the <code>iss</code> claim. When not set, the issuer is derived from the incoming request URL.</td>
+            <td>https://fake-issuer.example.com</td>
+            <td>None (derived from request URL)</td>
+        </tr>
+        <tr>
             <td>DevOidcToolkit__Logging__MinimumLevel</td>
             <td>The minimum log level, possible values are Trace, Debug, Information, Warning, Error, Critical.</td>
             <td>Information</td>
@@ -183,6 +189,13 @@ details](#example-json-configuration)).
             <td>The address that the application will listen on.</td>
             <td>localhost</td>
             <td>localhost</td>
+        </tr>
+        <tr>
+            <td>Issuer</td>
+            <td>string</td>
+            <td>Override the issuer URL embedded in tokens and the OIDC discovery document. Useful for testing clients that validate the <code>iss</code> claim. When not set, the issuer is derived from the incoming request URL.</td>
+            <td>https://fake-issuer.example.com</td>
+            <td>None</td>
         </tr>
         <tr>
             <td>Https</td>
@@ -419,6 +432,7 @@ details](#example-json-configuration)).
 {
     "DevOidcToolkit": {
         "Port": 8080,
+        "Issuer": "https://fake-issuer.example.com",
         "Users": [
             {
                 "Email": "sudo@localhost",

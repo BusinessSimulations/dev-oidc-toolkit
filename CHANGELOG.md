@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Add configurable `Issuer` field to override the `iss` claim in tokens and the OIDC discovery document
 
 ## [0.3.0]
 - Add support for `post_logout_redirect_uris`, see [#10](https://github.com/BusinessSimulations/dev-oidc-toolkit/pull/10)

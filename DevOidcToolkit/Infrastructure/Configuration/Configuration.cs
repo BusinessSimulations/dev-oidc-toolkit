@@ -11,6 +11,7 @@ public class DevOidcToolkitConfiguration
 
     public int Port { get; set; } = 80;
     public string? Address { get; set; }
+    public string? Issuer { get; set; }
 
     [ValidateObjectMembers] public List<UserConfiguration> Users { get; set; } = [];
     [ValidateObjectMembers] public List<ClientConfiguration> Clients { get; set; } = [];
