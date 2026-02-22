@@ -84,6 +84,11 @@ builder.Services.AddOpenIddict()
         options.RegisterScopes(Scopes.OpenId, Scopes.Email, Scopes.Profile);
         options.RegisterClaims(Claims.Email, Claims.GivenName, Claims.FamilyName);
 
+        if (config.Issuer is not null)
+        {
+            options.SetIssuer(new Uri(config.Issuer));
+        }
+
         // Register the signing and encryption credentials.
         options.AddEphemeralEncryptionKey()
                .AddEphemeralSigningKey();
