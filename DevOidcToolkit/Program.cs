@@ -82,7 +82,7 @@ builder.Services.AddOpenIddict()
         options.AllowClientCredentialsFlow();
 
         options.RegisterScopes(Scopes.OpenId, Scopes.Email, Scopes.Profile);
-        options.RegisterClaims(Claims.Email, Claims.GivenName, Claims.FamilyName);
+        options.RegisterClaims(Claims.Email, Claims.GivenName, Claims.FamilyName, Claims.Role);
 
         if (config.Issuer is not null)
         {
@@ -164,10 +164,11 @@ using (var scope = app.Services.CreateScope())
 
     // Set up users and clients in the DB
     var userManager = services.GetRequiredService<UserManager<DevOidcToolkitUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     for (var i = 0; i < config.Users.Count; i++)
     {
         var user = config.Users[i];
-        var result = await userManager.CreateAsync(new DevOidcToolkitUser()
+        var userEntity = new DevOidcToolkitUser()
         {
             Id = i.ToString(),
             Email = user.Email,
@@ -175,11 +176,21 @@ using (var scope = app.Services.CreateScope())
             FirstName = user.FirstName,
             LastName = user.LastName,
             EmailConfirmed = true,
-        });
+        };
+        var result = await userManager.CreateAsync(userEntity);
 
         if (!result.Succeeded)
         {
             throw new Exception($"Failed to set up user: ${string.Join(", ", result.Errors.Select(error => error.Description))}");
+        }
+
+        foreach (var role in user.Roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
+            await userManager.AddToRoleAsync(userEntity, role);
         }
     }
 
