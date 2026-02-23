@@ -466,6 +466,114 @@ public class ConnectControllerAuthorizeTests
         // Assert
         Assert.IsType<Microsoft.AspNetCore.Mvc.SignInResult>(result);
     }
+
+    [Fact]
+    public async Task Authorize_WhenUserHasRoles_IncludesRoleClaimsInSignInResult()
+    {
+        // Arrange
+        var testApp = new object();
+        var oidcAppManager = new Mock<IOpenIddictApplicationManager>();
+        var userManager = MockUserManager.CreateMockUserManager<DevOidcToolkitUser>();
+        var signInManager = MockSignInManager.CreateMockSignInManager<DevOidcToolkitUser>();
+
+        oidcAppManager.Setup(x => x.FindByClientIdAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(testApp);
+        oidcAppManager.Setup(x => x.GetConsentTypeAsync(testApp, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(ConsentTypes.Implicit);
+
+        var testUser = new DevOidcToolkitUser
+        {
+            Id = "user123",
+            UserName = "testuser",
+            Email = "test@example.com",
+            FirstName = "Test",
+            LastName = "User"
+        };
+
+        userManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>()))
+                .ReturnsAsync(testUser);
+        userManager.Setup(x => x.GetRolesAsync(testUser))
+                .ReturnsAsync(new List<string> { "admin", "editor" });
+
+        var claimsIdentity = new ClaimsIdentity();
+        var principal = new ClaimsPrincipal(claimsIdentity);
+        signInManager.Setup(x => x.CreateUserPrincipalAsync(testUser))
+                    .ReturnsAsync(principal);
+
+        var controller = CreateController(
+            oidcAppManager.Object,
+            userManager.Object,
+            signInManager.Object,
+            isAuthenticated: true,
+            userId: testUser.Id,
+            userName: testUser.UserName);
+
+        var request = new OpenIddictRequest { Scope = "openid profile" };
+        var feature = new OpenIddictServerAspNetCoreFeature { Transaction = new() { Request = request } };
+        controller.HttpContext.Features.Set(feature);
+
+        // Act
+        var result = await controller.Authorize();
+
+        // Assert
+        var signInResult = Assert.IsType<Microsoft.AspNetCore.Mvc.SignInResult>(result);
+        var roleClaims = signInResult.Principal.FindAll(Claims.Role).Select(c => c.Value).ToList();
+        Assert.Contains("admin", roleClaims);
+        Assert.Contains("editor", roleClaims);
+    }
+
+    [Fact]
+    public async Task Authorize_WhenUserHasNoRoles_NoRoleClaimsInSignInResult()
+    {
+        // Arrange
+        var testApp = new object();
+        var oidcAppManager = new Mock<IOpenIddictApplicationManager>();
+        var userManager = MockUserManager.CreateMockUserManager<DevOidcToolkitUser>();
+        var signInManager = MockSignInManager.CreateMockSignInManager<DevOidcToolkitUser>();
+
+        oidcAppManager.Setup(x => x.FindByClientIdAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(testApp);
+        oidcAppManager.Setup(x => x.GetConsentTypeAsync(testApp, It.IsAny<CancellationToken>()))
+            .ReturnsAsync(ConsentTypes.Implicit);
+
+        var testUser = new DevOidcToolkitUser
+        {
+            Id = "user123",
+            UserName = "testuser",
+            Email = "test@example.com",
+            FirstName = "Test",
+            LastName = "User"
+        };
+
+        userManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>()))
+                .ReturnsAsync(testUser);
+        userManager.Setup(x => x.GetRolesAsync(testUser))
+                .ReturnsAsync(new List<string>());
+
+        var claimsIdentity = new ClaimsIdentity();
+        var principal = new ClaimsPrincipal(claimsIdentity);
+        signInManager.Setup(x => x.CreateUserPrincipalAsync(testUser))
+                    .ReturnsAsync(principal);
+
+        var controller = CreateController(
+            oidcAppManager.Object,
+            userManager.Object,
+            signInManager.Object,
+            isAuthenticated: true,
+            userId: testUser.Id,
+            userName: testUser.UserName);
+
+        var request = new OpenIddictRequest { Scope = "openid profile" };
+        var feature = new OpenIddictServerAspNetCoreFeature { Transaction = new() { Request = request } };
+        controller.HttpContext.Features.Set(feature);
+
+        // Act
+        var result = await controller.Authorize();
+
+        // Assert
+        var signInResult = Assert.IsType<Microsoft.AspNetCore.Mvc.SignInResult>(result);
+        Assert.Empty(signInResult.Principal.FindAll(Claims.Role));
+    }
 }
 
 
@@ -884,6 +992,124 @@ public class ConnectControllerAuthorizePostTests
 
         // Assert
         Assert.IsType<Microsoft.AspNetCore.Mvc.SignInResult>(result);
+    }
+
+    [Fact]
+    public async Task AuthorizePost_WhenUserHasRoles_IncludesRoleClaimsInSignInResult()
+    {
+        // Arrange
+        var testApp = new object();
+        var oidcAppManager = new Mock<IOpenIddictApplicationManager>();
+        var userManager = MockUserManager.CreateMockUserManager<DevOidcToolkitUser>();
+        var signInManager = MockSignInManager.CreateMockSignInManager<DevOidcToolkitUser>();
+
+        oidcAppManager.Setup(x => x.FindByClientIdAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(testApp);
+
+        var testUser = new DevOidcToolkitUser
+        {
+            Id = "user123",
+            UserName = "testuser",
+            Email = "test@example.com",
+            FirstName = "Test",
+            LastName = "User"
+        };
+
+        userManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>()))
+                .ReturnsAsync(testUser);
+        userManager.Setup(x => x.GetRolesAsync(testUser))
+                .ReturnsAsync(new List<string> { "admin", "editor" });
+
+        var claimsIdentity = new ClaimsIdentity();
+        var principal = new ClaimsPrincipal(claimsIdentity);
+        signInManager.Setup(x => x.CreateUserPrincipalAsync(testUser))
+                    .ReturnsAsync(principal);
+
+        var controller = CreateController(
+            oidcAppManager.Object,
+            userManager.Object,
+            signInManager.Object,
+            isAuthenticated: true,
+            userId: testUser.Id,
+            userName: testUser.UserName);
+
+        controller.ControllerContext.HttpContext.Request.Method = "POST";
+        controller.ControllerContext.HttpContext.Request.ContentType = "application/x-www-form-urlencoded";
+        controller.ControllerContext.HttpContext.Request.Form = new FormCollection(new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
+        {
+            ["consent"] = "yes"
+        });
+
+        var request = new OpenIddictRequest { Scope = "openid profile" };
+        var feature = new OpenIddictServerAspNetCoreFeature { Transaction = new() { Request = request } };
+        controller.HttpContext.Features.Set(feature);
+
+        // Act
+        var result = await controller.AuthorizePost();
+
+        // Assert
+        var signInResult = Assert.IsType<Microsoft.AspNetCore.Mvc.SignInResult>(result);
+        var roleClaims = signInResult.Principal.FindAll(Claims.Role).Select(c => c.Value).ToList();
+        Assert.Contains("admin", roleClaims);
+        Assert.Contains("editor", roleClaims);
+    }
+
+    [Fact]
+    public async Task AuthorizePost_WhenUserHasNoRoles_NoRoleClaimsInSignInResult()
+    {
+        // Arrange
+        var testApp = new object();
+        var oidcAppManager = new Mock<IOpenIddictApplicationManager>();
+        var userManager = MockUserManager.CreateMockUserManager<DevOidcToolkitUser>();
+        var signInManager = MockSignInManager.CreateMockSignInManager<DevOidcToolkitUser>();
+
+        oidcAppManager.Setup(x => x.FindByClientIdAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(testApp);
+
+        var testUser = new DevOidcToolkitUser
+        {
+            Id = "user123",
+            UserName = "testuser",
+            Email = "test@example.com",
+            FirstName = "Test",
+            LastName = "User"
+        };
+
+        userManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>()))
+                .ReturnsAsync(testUser);
+        userManager.Setup(x => x.GetRolesAsync(testUser))
+                .ReturnsAsync(new List<string>());
+
+        var claimsIdentity = new ClaimsIdentity();
+        var principal = new ClaimsPrincipal(claimsIdentity);
+        signInManager.Setup(x => x.CreateUserPrincipalAsync(testUser))
+                    .ReturnsAsync(principal);
+
+        var controller = CreateController(
+            oidcAppManager.Object,
+            userManager.Object,
+            signInManager.Object,
+            isAuthenticated: true,
+            userId: testUser.Id,
+            userName: testUser.UserName);
+
+        controller.ControllerContext.HttpContext.Request.Method = "POST";
+        controller.ControllerContext.HttpContext.Request.ContentType = "application/x-www-form-urlencoded";
+        controller.ControllerContext.HttpContext.Request.Form = new FormCollection(new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
+        {
+            ["consent"] = "yes"
+        });
+
+        var request = new OpenIddictRequest { Scope = "openid profile" };
+        var feature = new OpenIddictServerAspNetCoreFeature { Transaction = new() { Request = request } };
+        controller.HttpContext.Features.Set(feature);
+
+        // Act
+        var result = await controller.AuthorizePost();
+
+        // Assert
+        var signInResult = Assert.IsType<Microsoft.AspNetCore.Mvc.SignInResult>(result);
+        Assert.Empty(signInResult.Principal.FindAll(Claims.Role));
     }
 }
 
