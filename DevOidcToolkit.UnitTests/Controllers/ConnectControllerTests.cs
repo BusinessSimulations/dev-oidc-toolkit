@@ -1320,6 +1320,74 @@ public class ConnectControllerExchangeTests
         Assert.Equal(Errors.UnsupportedGrantType, errorResponse.Error);
         Assert.Equal("The specified grant type is not supported.", errorResponse.ErrorDescription);
     }
+
+    [Fact]
+    public async Task Exchange_WithAuthorizationCodeGrant_RoleClaimsIncludedInIdentityToken()
+    {
+        // Arrange
+        var oidcAppManager = new Mock<IOpenIddictApplicationManager>();
+        var userManager = MockUserManager.CreateMockUserManager<DevOidcToolkitUser>();
+        var signInManager = MockSignInManager.CreateMockSignInManager<DevOidcToolkitUser>();
+
+        var controller = CreateController(
+            oidcAppManager.Object,
+            userManager.Object,
+            signInManager.Object);
+
+        var request = new OpenIddictRequest
+        {
+            GrantType = GrantTypes.AuthorizationCode,
+            Code = "test-code"
+        };
+
+        // Simulate the principal stored in the authorization code, which includes role claims
+        // set by ProcessAuthorizationRequest
+        var identity = new ClaimsIdentity(
+            authenticationType: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
+            nameType: Claims.Name,
+            roleType: Claims.Role);
+
+        identity.AddClaim(Claims.Subject, "user123");
+        identity.AddClaim(new Claim(Claims.Role, "admin"));
+        identity.AddClaim(new Claim(Claims.Role, "editor"));
+
+        var principal = new ClaimsPrincipal(identity);
+        var ticket = new AuthenticationTicket(principal, null, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+
+        var authServiceMock = new Mock<IAuthenticationService>();
+        authServiceMock
+            .Setup(x => x.AuthenticateAsync(It.IsAny<HttpContext>(), It.IsAny<string>()))
+            .ReturnsAsync(AuthenticateResult.Success(ticket));
+
+        var serviceProvider = new ServiceCollection()
+            .AddSingleton(authServiceMock.Object)
+            .BuildServiceProvider();
+
+        controller.ControllerContext.HttpContext.RequestServices = serviceProvider;
+
+        var feature = new OpenIddictServerAspNetCoreFeature
+        {
+            Transaction = new()
+            {
+                Request = request,
+                EndpointType = OpenIddictServerEndpointType.Token
+            }
+        };
+        controller.HttpContext.Features.Set(feature);
+
+        // Act
+        var result = await controller.Exchange();
+
+        // Assert
+        var signInResult = Assert.IsType<Microsoft.AspNetCore.Mvc.SignInResult>(result);
+        var roleClaims = signInResult.Principal.FindAll(Claims.Role).ToList();
+        Assert.NotEmpty(roleClaims);
+        foreach (var roleClaim in roleClaims)
+        {
+            Assert.Contains(Destinations.AccessToken, roleClaim.GetDestinations());
+            Assert.Contains(Destinations.IdentityToken, roleClaim.GetDestinations());
+        }
+    }
 }
 
 
