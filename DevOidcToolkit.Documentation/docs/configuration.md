@@ -113,6 +113,12 @@ This is a list of all of the environment variables that can be used to configure
             <td>None</td>
         </tr>
         <tr>
+            <td>DevOidcToolkit__Users__INDEX__Roles__INDEX</td>
+            <td>The roles of the user</td>
+            <td>user</td>
+            <td>None</td>
+        </tr>
+        <tr>
             <td>DevOidcToolkit__Clients__INDEX__Id</td>
             <td>The ID of the client.</td>
             <td>client</td>
