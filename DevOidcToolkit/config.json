@@ -5,7 +5,8 @@
       {
         "Email": "test@localhost",
         "FirstName": "Test",
-        "LastName": "User"
+        "LastName": "User",
+        "Roles": [ "admin", "user" ]
       }
     ],
     "Clients": [

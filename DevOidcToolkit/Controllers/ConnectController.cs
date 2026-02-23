@@ -241,6 +241,7 @@ public class ConnectController(ILogger<ConnectController> logger,
                     Claims.Email => [Destinations.AccessToken, Destinations.IdentityToken],
                     Claims.GivenName => [Destinations.AccessToken, Destinations.IdentityToken],
                     Claims.FamilyName => [Destinations.AccessToken, Destinations.IdentityToken],
+                    Claims.Role => [Destinations.AccessToken, Destinations.IdentityToken],
                     _ => [Destinations.AccessToken]
                 });
             }
