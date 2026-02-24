@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Add configurable user roles through `DevOidcToolkit__Users__INDEX__Roles__INDEX`
+- Add runtime user registration at `/users` page
+- Add runtime OIDC client creation at `/clients` page
+
 ## [0.4.0]
 - Add configurable `Issuer` field to override the `iss` claim in tokens and the OIDC discovery document
 

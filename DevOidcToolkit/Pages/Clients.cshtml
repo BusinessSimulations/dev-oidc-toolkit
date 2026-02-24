@@ -1,27 +1,62 @@
 @page "/clients"
-@using OpenIddict.Abstractions
-@using OpenIddict.Core
-@using System.Linq
-@using Microsoft.EntityFrameworkCore
-@using OpenIddict.EntityFrameworkCore.Models
 @using System.Text.Json
-@inject DevOidcToolkitContext DbContext
+@model DevOidcToolkit.Pages.ClientsModel
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "clients";
+    ViewData["Title"] = "Clients";
 }
 
 <a href="/">Return to homepage</a>
 
 <h1>Clients</h1>
 
+<h2>Create New Client</h2>
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div>
+        @Model.SuccessMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div>
+        @Model.ErrorMessage
+    </div>
+}
+
+<form method="post">
+    <label for="clientId">Client ID</label>
+    <input type="text" id="clientId" name="Input.ClientId" required />
+    <span asp-validation-for="Input.ClientId"></span>
+
+    <label for="clientSecret">Client Secret</label>
+    <input type="text" id="clientSecret" name="Input.ClientSecret" required />
+    <span asp-validation-for="Input.ClientSecret"></span>
+
+    <label for="redirectUris">Redirect URIs (comma-separated)</label>
+    <input type="text" id="redirectUris" name="Input.RedirectUris" placeholder="e.g., http://localhost:3000/callback, https://example.com/callback" />
+    <span asp-validation-for="Input.RedirectUris"></span>
+
+    <label for="postLogoutRedirectUris">Post-Logout Redirect URIs (comma-separated)</label>
+    <input type="text" id="postLogoutRedirectUris" name="Input.PostLogoutRedirectUris" placeholder="e.g., http://localhost:3000, https://example.com" />
+    <span asp-validation-for="Input.PostLogoutRedirectUris"></span>
+
+    <button type="submit">Create Client</button>
+</form>
+
+<hr />
+
+<h2>Existing Clients</h2>
+
 @{
-    var clients = await DbContext.Set<OpenIddictEntityFrameworkCoreApplication>().ToListAsync();
+    var clients = Model.Clients ?? [];
 }
 
 @if (clients?.Any() == true)
 {
-    <ul class="client-list">
+    <ul>
         @foreach (var client in clients)
         {
             <li style="list-style: none;">

@@ -5,3 +5,4 @@ OpenID Connect identity provider for development and testing.
 
 - [Tutorial](tutorial.md)
 - [Configuration](configuration.md)
+- [Runtime Management](runtime-management.md)

@@ -1,7 +1,8 @@
 # Configuration
 
 Dev OIDC Toolkit can be configured in two ways, either through environment variables, or through a JSON configuration
-file.
+file. Additionally, users and clients can be created and managed at runtime through the web interface - see
+[Runtime Management](runtime-management.md) for details.
 
 ## Environment variable configuration
 
