@@ -155,6 +155,23 @@ builder.WebHost.ConfigureKestrel(options =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        var origins = config.Clients
+            .SelectMany(client => client.RedirectUris.Concat(client.PostLogoutRedirectUris))
+            .Select(uri => new Uri(uri).GetLeftPart(UriPartial.Authority))
+            .Distinct()
+            .ToArray();
+
+        policy.WithOrigins(origins)
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
