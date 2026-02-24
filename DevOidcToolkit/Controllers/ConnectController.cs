@@ -143,6 +143,12 @@ public class ConnectController(ILogger<ConnectController> logger,
         principal.SetClaim(Claims.GivenName, user.FirstName);
         principal.SetClaim(Claims.FamilyName, user.LastName);
 
+        var roles = await _userManager.GetRolesAsync(user) ?? [];
+        if (roles.Count > 0)
+        {
+            principal.SetClaims(Claims.Role, [.. roles]);
+        }
+
         principal.SetScopes(request.GetScopes());
         principal.SetResources("resource_server");
 
@@ -156,6 +162,7 @@ public class ConnectController(ILogger<ConnectController> logger,
                     Claims.Email => [Destinations.AccessToken, Destinations.IdentityToken],
                     Claims.GivenName => [Destinations.AccessToken, Destinations.IdentityToken],
                     Claims.FamilyName => [Destinations.AccessToken, Destinations.IdentityToken],
+                    Claims.Role => [Destinations.AccessToken, Destinations.IdentityToken],
                     _ => [Destinations.AccessToken],
                 });
         }
@@ -234,6 +241,7 @@ public class ConnectController(ILogger<ConnectController> logger,
                     Claims.Email => [Destinations.AccessToken, Destinations.IdentityToken],
                     Claims.GivenName => [Destinations.AccessToken, Destinations.IdentityToken],
                     Claims.FamilyName => [Destinations.AccessToken, Destinations.IdentityToken],
+                    Claims.Role => [Destinations.AccessToken, Destinations.IdentityToken],
                     _ => [Destinations.AccessToken]
                 });
             }

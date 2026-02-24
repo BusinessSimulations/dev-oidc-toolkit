@@ -71,25 +71,25 @@ This is a list of all of the environment variables that can be used to configure
             <td>false</td>
         </tr>
         <tr>
-            <td>DevOidcToolkit__Https_File_CertificatePath</td>
+            <td>DevOidcToolkit__Https__File__CertificatePath</td>
             <td>The path to the certificate file.</td>
             <td>/app/cert.pem</td>
             <td>None</td>
         </tr>
         <tr>
-            <td>DevOidcToolkit__Https_File_PrivateKeyPath</td>
+            <td>DevOidcToolkit__Https__File__PrivateKeyPath</td>
             <td>The path to the private key file.</td>
             <td>/app/key.pem</td>
             <td>None</td>
         </tr>
         <tr>
-            <td>DevOidcToolkit__Https_Inline_Certificate</td>
+            <td>DevOidcToolkit__Https__Inline__Certificate</td>
             <td>The certificate as a string.</td>
             <td>Raw PEM certificate</td>
             <td>None</td>
         </tr>
         <tr>
-            <td>DevOidcToolkit__Https_Inline_PrivateKey</td>
+            <td>DevOidcToolkit__Https__Inline__PrivateKey</td>
             <td>The private key as a string.</td>
             <td>Raw PEM private key</td>
             <td>None</td>
@@ -110,6 +110,12 @@ This is a list of all of the environment variables that can be used to configure
             <td>DevOidcToolkit__Users__INDEX__LastName</td>
             <td>The last name of the user.</td>
             <td>Doe</td>
+            <td>None</td>
+        </tr>
+        <tr>
+            <td>DevOidcToolkit__Users__INDEX__Roles__INDEX</td>
+            <td>The roles of the user</td>
+            <td>user</td>
             <td>None</td>
         </tr>
         <tr>
