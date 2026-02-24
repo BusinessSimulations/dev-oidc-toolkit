@@ -18,6 +18,7 @@ public class DevOidcToolkitConfiguration
 
     [ValidateObjectMembers] public HttpsConfiguration? Https { get; set; }
     [ValidateObjectMembers] public LoggingConfiguration Logging { get; set; } = new LoggingConfiguration();
+    [ValidateObjectMembers] public DatabaseConfiguration Database { get; set; } = new DatabaseConfiguration();
 }
 
 public class UserConfiguration
@@ -89,4 +90,9 @@ public class LoggingConfiguration
 {
     public LogEventLevel MinimumLevel { get; set; } = LogEventLevel.Information;
     public bool UseXForwardedForHeader { get; set; } = false;
+}
+
+public class DatabaseConfiguration
+{
+    public string? SqliteFile { get; set; }
 }
