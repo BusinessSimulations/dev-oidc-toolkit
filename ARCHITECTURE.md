@@ -13,8 +13,9 @@ MkDocs](https://squidfunk.github.io/mkdocs-material/). This documentation is bot
 in to the application itself.
 
 The application reads the configuration on start up and then populates an in-memory database with users and OpenID
-connect clients. This means there is no persistence between application restarts, as the in-memory database is
-wiped and a new one is used.
+connect clients. Additionally, users and clients can be created at runtime through the web interface at `/users` and
+`/clients` respectively. Note that there is no persistence between application restarts, as the in-memory database is
+wiped and a new one is used - any users or clients created at runtime will be lost upon restart.
 
 The frontend is styled using basic styling, using the [Sakura CSS library](https://github.com/oxalorg/sakura).
 

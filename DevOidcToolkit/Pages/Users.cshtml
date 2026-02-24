@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @using System.Text.Json
+@model DevOidcToolkit.Pages.UsersModel
 @inject UserManager<DevOidcToolkitUser> UserManager
 @{
     Layout = "_Layout";
@@ -12,8 +13,46 @@
 
 <h1>Users</h1>
 
+<h2>Register New User</h2>
+
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div>
+        @Model.SuccessMessage
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div>
+        @Model.ErrorMessage
+    </div>
+}
+
+<form method="post">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="Input.Email" required />
+    <span asp-validation-for="Input.Email"></span>
+
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" name="Input.FirstName" required />
+    <span asp-validation-for="Input.FirstName"></span>
+
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" name="Input.LastName" required />
+    <span asp-validation-for="Input.LastName"></span>
+
+    <label for="roles">Roles (Optional, comma-separated)</label>
+    <input type="text" id="roles" name="Input.Roles" placeholder="e.g., admin, moderator, viewer" />
+    <span asp-validation-for="Input.Roles"></span>
+
+    <button type="submit">Create User</button>
+</form>
+
+<hr />
+
 @{
-    var users = await UserManager.Users.ToListAsync();
+    var users = Model.Users ?? [];
 }
 
 @if (users?.Any() == true)

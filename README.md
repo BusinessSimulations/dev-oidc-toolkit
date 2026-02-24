@@ -31,8 +31,10 @@ identity provider such as Keycloak as part of your testing pipeline.
 - Simple OpenID Connect identity provider
 - Support for client credentials grant type
 - Support for authorization code grant type
-- Create users through configuration
-- Create OpenID Connect clients through configuration
+- Create users through configuration or at runtime
+- Create OpenID Connect clients through configuration or at runtime
+- Assign multiple roles to users
+- Create new roles dynamically at runtime
 - List configured users
 - List configured clients
 - Different levels of logging to help with debugging
