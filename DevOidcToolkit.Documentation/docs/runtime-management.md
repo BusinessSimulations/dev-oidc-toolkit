@@ -56,6 +56,6 @@ URIs are validated on submission to ensure they are properly formatted.
 
 ## Important Notes
 
-- **No Persistence**: Users and clients created at runtime exist only in the in-memory database. They will be lost when the application restarts.
+- **Persistence**: By default, users and clients created at runtime exist only in the in-memory database and will be lost when the application restarts. To persist runtime changes, configure a [SQLite database](configuration.md#database).
 - **Configuration + Runtime**: You can use both configuration-based users/clients and runtime-created ones simultaneously.
 - **Role Management**: Roles created at runtime persist for the lifetime of the application and can be assigned to multiple users.
