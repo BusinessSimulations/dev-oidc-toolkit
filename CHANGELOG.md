@@ -5,7 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.6.0]
 - Add optional SQLite persistence via `Database.SqliteFile` config option; defaults to in-memory when not set (see [#20](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/20))
+
 ## [0.5.0]
 - Add configurable user roles through `DevOidcToolkit__Users__INDEX__Roles__INDEX` (see [#17](https://github.com/BusinessSimulations/dev-oidc-toolkit/pull/17))
 - Add runtime user registration at `/users` page (see [#15](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/15))
@@ -26,7 +29,9 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - Initial release
 
 [Unreleased]:
-https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.5.0...HEAD
+https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.6.0...HEAD
+[0.6.0]:
+https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.5.0...0.6.0
 [0.5.0]:
 https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.4.0...0.5.0
 [0.4.0]:
