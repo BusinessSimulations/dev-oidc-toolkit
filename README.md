@@ -39,6 +39,7 @@ identity provider such as Keycloak as part of your testing pipeline.
 - List configured clients
 - Different levels of logging to help with debugging
 - Built in documentation
+- Health check endpoints (`/healthz/live` and `/healthz/ready`) for container orchestration
 - Distributed as a self-contained binaries
 - Distributed as Docker images
 

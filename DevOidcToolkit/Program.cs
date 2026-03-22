@@ -115,6 +115,8 @@ builder.Services.AddOpenIddict()
                .DisableTransportSecurityRequirement();
     });
 
+builder.Services.AddHealthChecks();
+
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
@@ -297,6 +299,9 @@ if (!app.Environment.IsDevelopment())
     });
 
 }
+
+app.MapHealthChecks("/healthz/live");
+app.MapHealthChecks("/healthz/ready");
 
 app.MapControllers();
 app.MapRazorPages();
