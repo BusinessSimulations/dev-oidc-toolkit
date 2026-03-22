@@ -7,10 +7,19 @@ or Docker Compose) to determine when the service is live and ready to accept tra
 
 | Endpoint | Description |
 |---|---|
-| `GET /healthz/live` | Liveness probe — returns `200 Healthy` when the application is running. |
-| `GET /healthz/ready` | Readiness probe — returns `200 Healthy` when the application is ready to serve requests. |
+| `GET /healthz/live` | Liveness probe — returns `200 Healthy` when the application process is running. |
+| `GET /healthz/ready` | Readiness probe — returns `200 Healthy` when the application is ready to serve requests, including verifying database connectivity when SQLite is configured. |
 
-Both endpoints return a plain-text body of `Healthy` and an HTTP `200` status code when the service is healthy.
+Both endpoints return a plain-text body of `Healthy` and an HTTP `200` status code when healthy, or `503 Unhealthy`
+when a check fails.
+
+### Readiness and database checks
+
+When the application is configured to use a SQLite database (via `Database.SqliteFile`), the `/healthz/ready` endpoint
+also verifies that the database is reachable. The `/healthz/live` endpoint never checks the database — it only
+reports whether the process itself is running.
+
+When using the default in-memory database, both endpoints behave identically.
 
 ## Docker HEALTHCHECK
 
