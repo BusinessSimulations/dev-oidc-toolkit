@@ -115,6 +115,13 @@ builder.Services.AddOpenIddict()
                .DisableTransportSecurityRequirement();
     });
 
+var healthChecksBuilder = builder.Services.AddHealthChecks();
+
+if (config.Database.SqliteFile is not null)
+{
+    healthChecksBuilder.AddDbContextCheck<DevOidcToolkitContext>(tags: ["ready"]);
+}
+
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
@@ -297,6 +304,12 @@ if (!app.Environment.IsDevelopment())
     });
 
 }
+
+app.MapHealthChecks("/healthz/live", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
+{
+    Predicate = check => !check.Tags.Contains("ready")
+});
+app.MapHealthChecks("/healthz/ready");
 
 app.MapControllers();
 app.MapRazorPages();
