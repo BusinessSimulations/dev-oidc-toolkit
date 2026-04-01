@@ -6,6 +6,10 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.7.0]
+
+- Add `/healthz/live` and `/healthz/ready` healthcheck endpoint (see [#23](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/23))
+- Add `HEALTHCHECK` and `curl` to Docker image (see [#23](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/23))
 ### Breaking Changes
 
 - **Docker default port changed from 8080 to 80**: The `ENV DevOidcToolkit__Port=8080` environment variable has been removed from the Dockerfile. The application now listens on port 80 by default (the application's built-in default). Docker port mappings should be updated from `-p 8080:8080` to `-p 8080:80`. This fixes a bug where setting `Port` in `config.json` had no effect (see [#26](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/26))
