@@ -7,7 +7,6 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ## [0.7.0]
-
 - Add `/healthz/live` and `/healthz/ready` healthcheck endpoint (see [#23](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/23))
 - Add `HEALTHCHECK` and `curl` to Docker image (see [#23](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/23))
 ### Breaking Changes
@@ -37,7 +36,9 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - Initial release
 
 [Unreleased]:
-https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.6.0...HEAD
+https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.7.0...HEAD
+[0.7.0]:
+https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.6.0...0.7.0
 [0.6.0]:
 https://github.com/BusinessSimulations/dev-oidc-toolkit/compare/0.5.0...0.6.0
 [0.5.0]:
