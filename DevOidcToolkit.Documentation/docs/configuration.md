@@ -14,7 +14,7 @@ Dev OIDC Toolkit can be configured using environment variables. The environment 
 Here is how to run the application in a Docker container with environment variables:
 
 ```bash
-docker run -p 8080:8080                                                               \
+docker run -p 8080:80                                                                \
     -e DevOidcToolkit__Users__0__Email=test@localhost                                 \
     -e DevOidcToolkit__Users__0__FirstName=Test                                       \
     -e DevOidcToolkit__Users__0__LastName=User                                        \
@@ -166,7 +166,7 @@ When running the application in a Docker container, the `config.json` file shoul
 Here is how to run the application in a Docker container with a configuration file mounted:
 
 ```bash
-docker run -p 8080:8080 -v ./config.json:/app/config.json ghcr.io/businesssimulations/dev-oidc-toolkit
+docker run -p 8080:80 -v ./config.json:/app/config.json ghcr.io/businesssimulations/dev-oidc-toolkit
 ```
 
 ### Reference
@@ -485,7 +485,7 @@ In-memory database (default, no persistence):
 ```json
 {
     "DevOidcToolkit": {
-        "Port": 8080,
+        "Port": 80,
         "Issuer": "https://fake-issuer.example.com",
         "Users": [
             {
@@ -512,7 +512,7 @@ SQLite database (data persists across restarts):
 ```json
 {
     "DevOidcToolkit": {
-        "Port": 8080,
+        "Port": 80,
         "Database": {
             "SqliteFile": "/data/dev-oidc-toolkit.db"
         },

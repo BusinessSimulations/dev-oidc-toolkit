@@ -52,7 +52,7 @@ Access the documentatation here: <https://dev-oidc-toolkit.readthedocs.io/en/lat
 The easiest way to run this application is using docker, use this command:
 
 ```bash
-docker run -p 8080:8080                                                               \
+docker run -p 8080:80                                                                \
     -e DevOidcToolkit__Users__0__Email=test@localhost                                 \
     -e DevOidcToolkit__Users__0__FirstName=Test                                       \
     -e DevOidcToolkit__Users__0__LastName=User                                        \
