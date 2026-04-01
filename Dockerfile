@@ -36,6 +36,8 @@ COPY --from=build /app/dist .
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 
+ENV DevOidcToolkit__Address=0.0.0.0
+
 ENTRYPOINT ["dotnet", "dev-oidc-toolkit.dll"]
 
 EXPOSE 80
