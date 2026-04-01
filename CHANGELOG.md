@@ -6,6 +6,10 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Breaking Changes
+
+- **Docker default port changed from 8080 to 80**: The `ENV DevOidcToolkit__Port=8080` and `ENV DevOidcToolkit__Address=0.0.0.0` environment variables have been removed from the Dockerfile. The application now listens on port 80 by default (the application's built-in default). Docker port mappings should be updated from `-p 8080:8080` to `-p 8080:80`. This fixes a bug where setting `Port` in `config.json` had no effect (see [#26](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/26))
+
 ## [0.6.0]
 - Add optional SQLite persistence via `Database.SqliteFile` config option; defaults to in-memory when not set (see [#20](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/20))
 
