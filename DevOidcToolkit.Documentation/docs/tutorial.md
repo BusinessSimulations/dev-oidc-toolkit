@@ -14,7 +14,7 @@ instance to use it as an identity provider.
 1. Spin up the dev-oidc-toolkit container:
 
 ```bash
-docker run --rm -p 8080:8080                                                                 \
+docker run --rm -p 8080:80                                                                   \
     --name dev-oidc-toolkit                                                                  \
     -e DevOidcToolkit__Users__0__Email=test@localhost                                        \
     -e DevOidcToolkit__Users__0__FirstName=Test                                              \

@@ -28,7 +28,7 @@ The official Docker image already includes a `HEALTHCHECK` instruction that uses
 
 ```dockerfile
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8080/healthz/live || exit 1
+    CMD curl -f http://localhost:80/healthz/live || exit 1
 ```
 
 No extra configuration is required to enable this — it works out of the box.
@@ -42,9 +42,9 @@ services:
   dev-oidc-toolkit:
     image: ghcr.io/businesssimulations/dev-oidc-toolkit
     ports:
-      - "8080:8080"
+      - "8080:80"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz/ready"]
+      test: ["CMD", "curl", "-f", "http://localhost:80/healthz/ready"]
       interval: 10s
       timeout: 3s
       retries: 5
