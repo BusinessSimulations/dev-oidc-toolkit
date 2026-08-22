@@ -60,6 +60,12 @@ This is a list of all of the environment variables that can be used to configure
             <td>None (derived from request URL)</td>
         </tr>
         <tr>
+            <td>DevOidcToolkit__AccessTokenFormat</td>
+            <td>The shape of the access tokens issued to clients, either <code>Jwt</code> for a signed, readable JWT or <code>Opaque</code> for a random identifier with no readable payload. See <a href="#access-token-format">Access token format</a>.</td>
+            <td>Jwt</td>
+            <td>Jwt</td>
+        </tr>
+        <tr>
             <td>DevOidcToolkit__Database__SqliteFile</td>
             <td>The path to the SQLite database file. When set, data is persisted to this file and survives restarts. When not set, an in-memory database is used and all data is lost on restart.</td>
             <td>/data/dev-oidc-toolkit.db</td>
@@ -211,6 +217,13 @@ details](#example-json-configuration)).
             <td>None</td>
         </tr>
         <tr>
+            <td>AccessTokenFormat</td>
+            <td>string</td>
+            <td>The shape of the access tokens issued to clients, either <code>Jwt</code> or <code>Opaque</code>. See <a href="#access-token-format">Access token format</a> for more information.</td>
+            <td>Jwt</td>
+            <td>Jwt</td>
+        </tr>
+        <tr>
             <td>Database</td>
             <td>object</td>
             <td>The database configuration, see <a href="#database">Database</a> for more information.</td>
@@ -247,6 +260,42 @@ details](#example-json-configuration)).
         </tr>
     </tbody>
 </table>
+
+#### Access token format
+
+Production identity providers issue access tokens in one of two shapes, and `AccessTokenFormat` lets you pick which
+one to test your client against.
+
+<table>
+    <thead>
+        <tr>
+            <th>Value</th>
+            <th>Description</th>
+            <th>Providers that behave this way</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Jwt</td>
+            <td>A signed JWT (<code>RS256</code>), validated against the key published at the <code>jwks_uri</code>. The payload is readable by the client and by any resource server holding the token.</td>
+            <td>Keycloak, Auth0, Okta, AWS Cognito, Entra ID for custom APIs</td>
+        </tr>
+        <tr>
+            <td>Opaque</td>
+            <td>A crypto-secure random identifier with no readable payload. The claims are held server side, so the token can only be inspected through the introspection endpoint. Useful for checking that a client treats access tokens as opaque, as the OAuth specification requires.</td>
+            <td>Google, Entra ID for Microsoft Graph</td>
+        </tr>
+    </tbody>
+</table>
+
+ID tokens are always signed `RS256` JWTs and are unaffected by this setting, matching the
+`id_token_signing_alg_values_supported` value advertised in the discovery document.
+
+!!! warning "Readable access tokens expose their claims"
+    With the default `Jwt` format, anyone holding an access token can read every claim in it, including the email
+    address and roles of the user. This is the same trade-off every provider in the list above makes, and it is
+    appropriate for the fabricated test data Dev OIDC Toolkit serves. Do not point Dev OIDC Toolkit at real user
+    data.
 
 #### Https
 

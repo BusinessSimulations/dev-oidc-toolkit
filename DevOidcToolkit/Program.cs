@@ -101,9 +101,23 @@ builder.Services.AddOpenIddict()
             options.SetIssuer(new Uri(config.Issuer));
         }
 
-        // Register the signing and encryption credentials.
+        // Register the signing and encryption credentials. OpenIddict requires an encryption key to be registered
+        // whatever the access token format, so this registration must stay even when access tokens are not encrypted.
         options.AddEphemeralEncryptionKey()
                .AddEphemeralSigningKey();
+
+        // OpenIddict encrypts access tokens by default, using a key it deliberately never publishes in the JWKS.
+        // That suits a resource server running OpenIddict with the same keys, but this toolkit exists to be called
+        // by arbitrary clients, and no production provider hands third parties a token they cannot open. Issue the
+        // shape they actually expect instead.
+        if (config.AccessTokenFormat == AccessTokenFormat.Opaque)
+        {
+            options.UseReferenceAccessTokens();
+        }
+        else
+        {
+            options.DisableAccessTokenEncryption();
+        }
 
         // Register the ASP.NET Core host and configure the ASP.NET Core options.
         options.UseAspNetCore()
@@ -258,6 +272,7 @@ using (var scope = app.Services.CreateScope())
                 Permissions.Endpoints.Authorization,
                 Permissions.Endpoints.Token,
                 Permissions.Endpoints.EndSession,
+                Permissions.Endpoints.Introspection,
 
                 Permissions.GrantTypes.AuthorizationCode,
                 Permissions.ResponseTypes.Code,

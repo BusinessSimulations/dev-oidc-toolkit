@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Issue access tokens as signed `RS256` JWTs instead of encrypted JWEs, so clients and resource servers can validate them against the published JWKS (see [#29](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/29))
+- Add `AccessTokenFormat` config option to switch access tokens between `Jwt` and `Opaque` (see [#29](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/29))
+### Breaking Changes
+
+- **Access tokens are no longer encrypted by default**: access tokens were previously JWEs using `RSA-OAEP`, encrypted under a key that was never published, so nothing outside this application could read them. They are now signed `RS256` JWTs with a readable payload, matching Keycloak, Auth0, Okta and Cognito. Anything that relied on access tokens being opaque should set `AccessTokenFormat` to `Opaque`, which returns a random identifier instead. ID tokens are unaffected
 
 ## [0.7.0]
 - Add `/healthz/live` and `/healthz/ready` healthcheck endpoint (see [#23](https://github.com/BusinessSimulations/dev-oidc-toolkit/issues/23))
