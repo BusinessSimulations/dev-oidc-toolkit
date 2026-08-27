@@ -24,6 +24,7 @@ theme:
 extra:
   generator: false
 markdown_extensions:
+  - admonition
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span

@@ -12,6 +12,7 @@ public class DevOidcToolkitConfiguration
     public int Port { get; set; } = 80;
     public string? Address { get; set; }
     public string? Issuer { get; set; }
+    public AccessTokenFormat AccessTokenFormat { get; set; } = AccessTokenFormat.Jwt;
 
     [ValidateObjectMembers] public List<UserConfiguration> Users { get; set; } = [];
     [ValidateObjectMembers] public List<ClientConfiguration> Clients { get; set; } = [];
@@ -19,6 +20,24 @@ public class DevOidcToolkitConfiguration
     [ValidateObjectMembers] public HttpsConfiguration? Https { get; set; }
     [ValidateObjectMembers] public LoggingConfiguration Logging { get; set; } = new LoggingConfiguration();
     [ValidateObjectMembers] public DatabaseConfiguration Database { get; set; } = new DatabaseConfiguration();
+}
+
+/// <summary>
+/// The shape of the access tokens issued to client applications. Both values mirror behaviour seen in production
+/// identity providers, so clients can be tested against either.
+/// </summary>
+public enum AccessTokenFormat
+{
+    /// <summary>
+    /// A signed, readable JWT, as issued by Keycloak, Auth0, Okta, Cognito and Entra ID for custom APIs.
+    /// </summary>
+    Jwt,
+
+    /// <summary>
+    /// An opaque, crypto-secure random identifier that carries no readable payload, as issued by Google and by
+    /// Entra ID for Microsoft Graph. Useful for checking that a client treats access tokens as opaque.
+    /// </summary>
+    Opaque
 }
 
 public class UserConfiguration
